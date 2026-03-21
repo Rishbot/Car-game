@@ -21,6 +21,7 @@ class Car:
 class Map:
     def __init__(self, type: str, goal:dict = {"x": 0, "y": 0}):
         self.type = type
+        self.completed = False
         self.goal = goal
     def _display_block(self):
         if self.type == "plain":
@@ -39,7 +40,7 @@ class Map:
                 else:
                     self._display_block()
                 if cars[0].x == self.goal["x"] and cars[0].y == self.goal["y"]:
-                    print("You Win!")
+                    self.completed = True
             print()
     
 car1 = Car("BMW", 100, 1, 13, 13)
@@ -50,6 +51,9 @@ map = Map("grid", {"x": 12, "y": 12})
 while True:
     print("INFORMATION OF CAR1")
     map.display(cars)
+    if map.completed:
+        print("You Win!")
+        break
     control = input("Enter the control for the car (w, a, s, d): ")
     if control == "w":
         car1.forward()
@@ -62,5 +66,3 @@ while True:
     elif control == "p":
         print("Exiting the program")
         break
-    if car1.x == car2.x and car1.y == car2.y:
-        print("You Win!")
