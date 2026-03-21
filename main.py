@@ -1,23 +1,3 @@
-class Map:
-    def __init__(self, type):
-        self.type = type
-    def _display_block(self):
-        if self.type == "plain":
-            print(" ", end=" ")
-        elif self.type == "grid":
-            print(".", end=" ")
-
-    def display(self, car):
-        row = car.x
-        column = car.y
-        for i in range(25):
-            for j in range(25):
-                if i == row and j == column:
-                    print("X", end=" ")
-                else:
-                    self._display_block()
-            print()
-
 class Car: 
     def __init__(self, brand, fuel, speed, x, y):
         self.brand = brand
@@ -37,13 +17,36 @@ class Car:
     def right(self):
         print("The car is moving right")
         self.x = self.x + self.speed
+
+class Map:
+    def __init__(self, type: str):
+        self.type = type
+    def _display_block(self):
+        if self.type == "plain":
+            print(" ", end=" ")
+        elif self.type == "grid":
+            print(".", end=" ")
+
+    def display(self, cars: list[Car]):
+        for i in range(25):
+            for j in range(25):
+                for car in cars:
+                    row = car.x
+                    column = car.y
+                    if i == row and j == column:
+                        print("X", end=" ")
+                    else:
+                        self._display_block()
+            print()
     
-car1 = Car("BMW", 100, 1, 0, 0)
-map = Map("plain")
+car1 = Car("BMW", 100, 1, 13, 13)
+car2 = Car("Mercedes", 100, 1, 11, 11)
+cars = [car1, car2]
+map = Map("grid")
 
 while True:
     print("INFORMATION OF CAR1")
-    map.display(car1)
+    map.display(cars)
     control = input("Enter the control for the car (w, a, s, d): ")
     if control == "w":
         car1.forward()
@@ -56,3 +59,5 @@ while True:
     elif control == "p":
         print("Exiting the program")
         break
+    if car1.x == car2.x and car1.y == car2.y:
+        print("You Win!")
