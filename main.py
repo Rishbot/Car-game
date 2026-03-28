@@ -7,10 +7,10 @@ class Car:
         self.y = y
     def forward(self):
         print("The car is moving forward")
-        self.y = self.y + self.speed
+        self.y = self.y - self.speed
     def backward(self):
         print("The car is moving backward")
-        self.y = self.y - self.speed
+        self.y = self.y + self.speed
     def left(self):
         print("The car is moving left")
         self.x = self.x - self.speed
@@ -18,11 +18,27 @@ class Car:
         print("The car is moving right")
         self.x = self.x + self.speed
 
+class EnemyCar(Car):
+    def __init__(self, brand, fuel, speed, x, y):
+        super().__init__(brand, fuel, speed, x, y)
+    def move(self, car: Car):
+        print("The enemy car is moving")
+        if self.x > car.x:
+            self.right()
+        elif self.x < car.x:
+            self.left()
+        if self.y > car.y:
+            self.forward()
+        elif self.y < car.y:
+            self.backward()
+        
+
 class Map:
     def __init__(self, type: str, goal:dict = {"x": 0, "y": 0}):
         self.type = type
         self.completed = False
         self.goal = goal
+
     def _display_block(self):
         if self.type == "plain":
             print(" ", end=" ")
@@ -50,7 +66,7 @@ class Map:
             print()
     
 car1 = Car("X", 100, 1, 13, 13)
-car2 = Car("+", 100, 1, 11, 11)
+car2 = EnemyCar("+", 100, 1, 11, 11)
 cars = [car1, car2]
 map = Map("grid", {"x": 12, "y": 12})
 
@@ -72,3 +88,4 @@ while True:
     elif control == "p":
         print("Exiting the program")
         break
+    car2.move(car1)
