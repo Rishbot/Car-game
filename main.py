@@ -30,21 +30,27 @@ class Map:
             print(".", end=" ")
 
     def display(self, cars: list[Car]):
-        cars_positions = {(car.x, car.y) for car in cars}
+        cars_positions = [{"brand": car.brand, "x": car.x, "y": car.y} for car in cars]
+        print(cars_positions)
         for i in range(25):
             for j in range(25):
-                if (i, j) in cars_positions:
-                    print("X", end=" ")
-                elif i == self.goal["x"] and j == self.goal["y"]:
+                car_found = False
+                for car in cars_positions:
+                    if car["x"] == i and car["y"] == j:
+                        print(car['brand'], end=" ")
+                        car_found = True
+                        break
+                if i == self.goal["x"] and j == self.goal["y"] and not car_found:
                     print("O", end=" ")
                 else:
-                    self._display_block()
+                    if not car_found:    
+                        self._display_block()
                 if cars[0].x == self.goal["x"] and cars[0].y == self.goal["y"]:
                     self.completed = True
             print()
     
-car1 = Car("BMW", 100, 1, 13, 13)
-car2 = Car("Mercedes", 100, 1, 11, 11)
+car1 = Car("X", 100, 1, 13, 13)
+car2 = Car("+", 100, 1, 11, 11)
 cars = [car1, car2]
 map = Map("grid", {"x": 12, "y": 12})
 
