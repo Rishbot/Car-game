@@ -24,9 +24,9 @@ class EnemyCar(Car):
     def move(self, car: Car):
         print("The enemy car is moving")
         if self.x > car.x:
-            self.right()
-        elif self.x < car.x:
             self.left()
+        elif self.x < car.x:
+            self.right()
         if self.y > car.y:
             self.forward()
         elif self.y < car.y:
@@ -52,11 +52,11 @@ class Map:
             for j in range(25):
                 car_found = False
                 for car in cars_positions:
-                    if car["x"] == i and car["y"] == j:
+                    if car["y"] == i and car["x"] == j:
                         print(car['brand'], end=" ")
                         car_found = True
                         break
-                if i == self.goal["x"] and j == self.goal["y"] and not car_found:
+                if i == self.goal["y"] and j == self.goal["x"] and not car_found:
                     print("O", end=" ")
                 else:
                     if not car_found:    
@@ -65,8 +65,8 @@ class Map:
                     self.completed = True
             print()
     
-car1 = Car("X", 100, 1, 13, 13)
-car2 = EnemyCar("+", 100, 1, 11, 11)
+car1 = Car("X", 100, 1, 1, 1)
+car2 = EnemyCar("+", 100, 1, 23, 23)
 cars = [car1, car2]
 map = Map("grid", {"x": 12, "y": 12})
 
