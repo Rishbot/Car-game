@@ -1,3 +1,5 @@
+import random
+
 class Car: 
     def __init__(self, brand, fuel, speed, x, y):
         self.brand = brand
@@ -21,6 +23,7 @@ class Car:
 class EnemyCar(Car):
     def __init__(self, brand, fuel, speed, x, y):
         super().__init__(brand, fuel, speed, x, y)
+        self.caught_player = False
     def move(self, car: Car):
         print("The enemy car is moving")
         if self.x > car.x:
@@ -31,6 +34,9 @@ class EnemyCar(Car):
             self.forward()
         elif self.y < car.y:
             self.backward()
+        if self.x == car.x and self.y == car.y:
+            print("Game Over!")
+            self.caught_player = True
         
 
 class Map:
@@ -65,8 +71,8 @@ class Map:
                     self.completed = True
             print()
     
-car1 = Car("X", 100, 1, 1, 1)
-car2 = EnemyCar("+", 100, 1, 23, 23)
+car1 = Car("X", 100, 1, random.randint(0,24), random.randint(0,24))
+car2 = EnemyCar("+", 100, 1, random.randint(0,24), random.randint(0,24))
 cars = [car1, car2]
 map = Map("grid", {"x": 12, "y": 12})
 
@@ -88,4 +94,8 @@ while True:
     elif control == "p":
         print("Exiting the program")
         break
-    car2.move(car1)
+    if not car2.caught_player:
+        car2.move(car1)
+    else:
+        print("Game Over!")
+        exit()
