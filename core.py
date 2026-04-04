@@ -8,16 +8,12 @@ class Car:
         self.x = x
         self.y = y
     def forward(self):
-        print("The car is moving forward")
         self.y = self.y - self.speed
     def backward(self):
-        print("The car is moving backward")
         self.y = self.y + self.speed
     def left(self):
-        print("The car is moving left")
         self.x = self.x - self.speed
     def right(self):
-        print("The car is moving right")
         self.x = self.x + self.speed
 
 class EnemyCar(Car):
@@ -70,12 +66,13 @@ class Map:
                 if cars[0].x == self.goal["x"] and cars[0].y == self.goal["y"]:
                     self.completed = True
             print()
-    
+
 car1 = Car("X", 100, 1, random.randint(0,24), random.randint(0,24))
 car2 = EnemyCar("+", 100, 1, random.randint(0,24), random.randint(0,24))
 cars = [car1, car2]
 map = Map("grid", {"x": 12, "y": 12})
 
+'''
 while True:
     print("INFORMATION OF CAR1")
     map.display(cars)
@@ -95,7 +92,10 @@ while True:
         print("Exiting the program")
         break
     if not car2.caught_player:
-        car2.move(car1)
+        if random.randint(0, 1) == 0:
+            car2.move(car1)
     else:
         print("Game Over!")
         exit()
+
+'''
