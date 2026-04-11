@@ -29,7 +29,7 @@ class EnemyCar(Car):
             self.forward()
         elif self.y < car.y:
             self.backward()
-        if abs(self.x - car.x) < 25 and abs(self.y - car.y) < 25:
+        if abs(self.x - car.x) < 35 and abs(self.y - car.y) < 35:
             print("Game Over!")
             self.caught_player = True
         
@@ -62,7 +62,7 @@ class Map:
                 else:
                     if not car_found:    
                         self._display_block()
-                if abs(cars[0].x - self.goal["x"]) < 25 and abs(cars[0].y - self.goal["y"]) < 25:
+                if abs(cars[0].x - self.goal["x"]) < 50 and abs(cars[0].y - self.goal["y"]) < 50:
                     self.completed = True
             print()
 

@@ -14,8 +14,7 @@ car1 = Car("X", 100, 1, random.randint(100,1000), random.randint(100,600))
 car2 = EnemyCar("+", 100, 1, random.randint(100,1000), random.randint(100,600))
 cars = [car1, car2]
 map = Map("grid", {"x": random.randint(100,1000), "y": random.randint(100,600)})
-
-
+destination = pygame.Vector2(map.goal["x"], map.goal["y"])
 
 while running:
     # poll for events
@@ -40,14 +39,15 @@ while running:
         car1.right()
     if keys[pygame.K_s]:
         car1.backward()
-    
-    if map.completed:
-        print("You Win!")
-        exit()
 
     if not car2.caught_player:
         if random.randint(0, 1) == 0:
             car2.move(car1)
+            if abs(cars[0].x - map.goal["x"]) < 35 and abs(cars[0].y - map.goal["y"]) < 35:
+                map.completed = True
+                print("You Win!")
+                running = False
+    
     else:
         print("Game Over!")
         exit()
