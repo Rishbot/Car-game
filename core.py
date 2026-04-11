@@ -21,7 +21,6 @@ class EnemyCar(Car):
         super().__init__(brand, fuel, speed, x, y)
         self.caught_player = False
     def move(self, car: Car):
-        print("The enemy car is moving")
         if self.x > car.x:
             self.left()
         elif self.x < car.x:
@@ -30,7 +29,7 @@ class EnemyCar(Car):
             self.forward()
         elif self.y < car.y:
             self.backward()
-        if self.x == car.x and self.y == car.y:
+        if abs(self.x - car.x) < 25 and abs(self.y - car.y) < 25:
             print("Game Over!")
             self.caught_player = True
         
@@ -63,7 +62,7 @@ class Map:
                 else:
                     if not car_found:    
                         self._display_block()
-                if cars[0].x == self.goal["x"] and cars[0].y == self.goal["y"]:
+                if abs(cars[0].x - self.goal["x"]) < 25 and abs(cars[0].y - self.goal["y"]) < 25:
                     self.completed = True
             print()
 

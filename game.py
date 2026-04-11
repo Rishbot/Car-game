@@ -25,11 +25,11 @@ while running:
             running = False
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.fill("white")
 
-    pygame.draw.circle(screen, "red", (car1.x, car1.y), 40)
-    pygame.draw.circle(screen, "green", (car2.x, car2.y), 40)
-    pygame.draw.circle(screen, "yellow", (map.goal["x"], map.goal["y"]), 40)
+    pygame.draw.circle(screen, "red", (car1.x, car1.y), 25)
+    pygame.draw.circle(screen, "blue", (car2.x, car2.y), 25)
+    pygame.draw.circle(screen, "green", (map.goal["x"], map.goal["y"]), 25)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -41,6 +41,10 @@ while running:
     if keys[pygame.K_s]:
         car1.backward()
     
+    if map.completed:
+        print("You Win!")
+        exit()
+
     if not car2.caught_player:
         if random.randint(0, 1) == 0:
             car2.move(car1)
