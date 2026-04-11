@@ -1,8 +1,9 @@
 import random
 
 class Car: 
-    def __init__(self, brand, fuel, speed, x, y):
+    def __init__(self, brand, size, fuel, speed, x, y):
         self.brand = brand
+        self.size = size
         self.fuel = fuel
         self.speed = speed
         self.x = x
@@ -17,8 +18,8 @@ class Car:
         self.x = self.x + self.speed
 
 class EnemyCar(Car):
-    def __init__(self, brand, fuel, speed, x, y):
-        super().__init__(brand, fuel, speed, x, y)
+    def __init__(self, brand, size, fuel, speed, x, y):
+        super().__init__(brand, size, fuel, speed, x, y)
         self.caught_player = False
     def move(self, car: Car):
         if self.x > car.x:
@@ -29,7 +30,7 @@ class EnemyCar(Car):
             self.forward()
         elif self.y < car.y:
             self.backward()
-        if abs(self.x - car.x) < 35 and abs(self.y - car.y) < 35:
+        if abs(self.x - car.x) < self.size - 10 and abs(self.y - car.y) < self.size - 10:
             print("Game Over!")
             self.caught_player = True
         
@@ -66,8 +67,8 @@ class Map:
                     self.completed = True
             print()
 
-car1 = Car("X", 100, 1, random.randint(0,24), random.randint(0,24))
-car2 = EnemyCar("+", 100, 1, random.randint(0,24), random.randint(0,24))
+car1 = Car("X", 100, 1, 1, random.randint(0,24), random.randint(0,24))
+car2 = EnemyCar("+", 100, 4, 1, random.randint(0,24), random.randint(0,24))
 cars = [car1, car2]
 map = Map("grid", {"x": 12, "y": 12})
 
